@@ -1,0 +1,23 @@
+﻿@model Doctor
+
+<h1>Update Doctor</h1>
+@if (Model != null)
+{
+    
+
+    <form method="post">
+        <label>IdDoctor</label>
+        <input type="text" name="iddoctor"  class="form-check form-control" readonly value="@Model.IdDoctor"/>
+        <label>Apellido</label>
+        <input type="text" name="apellido" class="form-check form-control" value="@Model.Apellido" />
+        <label>Especialidad</label>
+        <input type="text" name="especialidad" class="form-check form-control" value="@Model.Especialidad" />
+        <label>Salario</label>
+        <input type="text" name="salario" class="form-check form-control" value="@Model.Salario" />
+        <label>IdHospital</label>
+        <input type="text" name="idhospital" class="form-check form-control" value="@Model.IdHospital" />
+        <button class="btn btn-success">Update Doctor</button>
+    </form>
+
+    <a asp-controller="Doctores" asp-action="Index" class="brn btn-link">Back Home</a>
+}

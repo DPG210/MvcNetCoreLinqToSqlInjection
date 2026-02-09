@@ -17,7 +17,10 @@ builder.Services.AddSingleton<ICoche, Coche>(x=>car);
 //builder.Services.AddTransient<Coche>();
 //builder.Services.AddSingleton<Coche>();
 //builder.Services.AddSingleton<ICoche,Coche>();
-builder.Services.AddTransient<RepositoryDoctoresSQLServer>();
+//los repo suelen ir como AddTransient
+//builder.Services.AddTransient<RepositoryDoctoresSQLServer>();
+//builder.Services.AddTransient<RepositoryDoctoresOracle>();
+builder.Services.AddTransient<IRepositoryDoctores, RepositoryDoctoresOracle>();
 
 
 var app = builder.Build();
