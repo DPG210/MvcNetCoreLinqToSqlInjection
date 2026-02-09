@@ -4,6 +4,7 @@ using MvcNetCoreLinqToSqlInjection;
 using MvcNetCoreLinqToSqlInjection.Models;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
+using MvcNetCoreLinqToSqlInjection.Helpers;
 using static Azure.Core.HttpHeader;
 
 #region PROCEDIMIENTOS_ALMACENADOS
@@ -142,7 +143,8 @@ namespace MvcNetCoreLinqToSqlInjection.Repositories
         public List<Doctor> GetDoctoresEspecialidad(string especialidad)
         {
             var consulta = from datos in this.tablaDoctor.AsEnumerable()
-                           where (datos.Field<string>("especialidad")).ToUpper().StartsWith(especialidad.ToUpper())
+                           let especialidadLimpia= datos.Field<string>("especialidad").RemoveAccents().ToUpper()
+                           where especialidadLimpia.StartsWith(especialidad.RemoveAccents().ToUpper())
                            select datos;
             List<Doctor> doctores = new List<Doctor>();
             foreach (var row in consulta)

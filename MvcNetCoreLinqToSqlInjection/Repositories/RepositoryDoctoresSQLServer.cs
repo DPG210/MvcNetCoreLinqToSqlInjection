@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Data.SqlClient;
+using MvcNetCoreLinqToSqlInjection.Helpers;
 using MvcNetCoreLinqToSqlInjection.Models;
 using System.Data;
 
@@ -119,7 +120,8 @@ namespace MvcNetCoreLinqToSqlInjection.Repositories
         {
 
             var consulta = from datos in this.tablaDoctor.AsEnumerable()
-                           where (datos.Field<string>("especialidad")).ToUpper().StartsWith(especialidad.ToUpper()) 
+                           let especialidadLimpia = datos.Field<string>("especialidad").RemoveAccents().ToUpper()
+                           where especialidadLimpia.StartsWith(especialidad.RemoveAccents().ToUpper())
                            select datos;
             List<Doctor> doctores = new List<Doctor>();
             foreach (var row in consulta)
