@@ -112,5 +112,29 @@ namespace MvcNetCoreLinqToSqlInjection.Repositories
 
             return doctor;
         }
+
+        
+
+        public  List<Doctor> GetDoctoresEspecialidad(string especialidad)
+        {
+
+            var consulta = from datos in this.tablaDoctor.AsEnumerable()
+                           where (datos.Field<string>("especialidad")).ToUpper().StartsWith(especialidad.ToUpper()) 
+                           select datos;
+            List<Doctor> doctores = new List<Doctor>();
+            foreach (var row in consulta)
+            {
+                Doctor doc = new Doctor
+                {
+                    IdDoctor = row.Field<int>("Doctor_NO"),
+                    Apellido = row.Field<string>("Apellido"),
+                    Especialidad = row.Field<string>("especialidad"),
+                    Salario = row.Field<int>("salario"),
+                    IdHospital = row.Field<int>("hospital_cod")
+                };
+                doctores.Add(doc);
+            }
+            return doctores;
+        }
     }
 }

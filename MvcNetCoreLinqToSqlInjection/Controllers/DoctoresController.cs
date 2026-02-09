@@ -46,5 +46,17 @@ namespace MvcNetCoreLinqToSqlInjection.Controllers
             await this.repo.UpdateDoctorAsync(doc.IdDoctor, doc.Apellido, doc.Especialidad, doc.Salario, doc.IdHospital);
             return RedirectToAction("index");
         }
+
+        public IActionResult DoctoresEspecialidad()
+        {
+            List<Doctor> doctores = this.repo.GetDoctores();
+            return View(doctores);
+        }
+        [HttpPost]
+        public IActionResult DoctoresEspecialidad(string especialidad)
+        {
+            List<Doctor> doctores = this.repo.GetDoctoresEspecialidad(especialidad);
+            return View(doctores);
+        }
     }
 }
